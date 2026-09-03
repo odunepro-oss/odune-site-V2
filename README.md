@@ -1,0 +1,1 @@
+# Odune — site V2 (Next.js)\n\nSite statique généré avec Next.js (App Router, export statique). `npm install` puis `npm run dev`.\n
