@@ -94,6 +94,16 @@ a.logo:hover,.nav__bascule:hover{opacity:.55}
 .nav__liens a{transition:color .18s ease}
 .nav__liens a:hover{color:rgba(255,255,255,.6)}
 
+/* CTA mis en avant dans la barre large, comme dans le menu déroulé */
+.nav__lien--fort{
+  background:#FFFFFF;color:#261B1A;
+  padding:0 14px;line-height:24px;border-radius:var(--rayon);
+  transition:background-color .18s ease,color .18s ease;
+}
+.nav__liens a.nav__lien--fort:hover{background:var(--survol);color:#261B1A}
+.nav__lien--fort:active{background:var(--presse)}
+.nav__lien--fort:focus-visible{outline-color:#FFFFFF}
+
 .nav__bascule{
   display:none;flex:none;background:none;border:0;padding:0;cursor:pointer;
   position:relative;
