@@ -405,7 +405,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 }
 
 /* visionneuse plein écran — mobile uniquement */
-.visionneuse{position:fixed;inset:0;z-index:200;background:rgba(38,27,26,.97);
+.visionneuse{position:fixed;inset:0;z-index:200;background:#261B1A;
   display:none;align-items:center;justify-content:center;
   opacity:0;transition:opacity .28s ease}
 .visionneuse[data-ouverte]{display:flex}
