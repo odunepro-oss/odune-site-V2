@@ -337,29 +337,42 @@ route();
     var pMosa=document.getElementById("mosaique-proj");
     if(pMosa){
       if(p.mosaique){
-        var tous=[];
-        p.mosaique.forEach(function(rang){rang.forEach(function(v){tous.push(v);});});
-        var htmlD="", iD=0, mD=0, motifD=[1,2,1,2];
-        while(iD<tous.length){
-          var nD=motifD[mD%motifD.length]; mD++;
-          if(nD===1 || tous.length-iD===1){
-            htmlD+='<div class="vis" style="aspect-ratio:'+tous[iD].ar+'"><img class="vis__img" src="'+tous[iD].src+'" alt=""></div>';
-            iD+=1;
-          } else {
-            var a=tous[iD], c=tous[iD+1];
-            var ra=a.ar.split("/"), rc=c.ar.split("/");
-            var fa=(parseFloat(ra[0])/parseFloat(ra[1])).toFixed(4);
-            var fc=(parseFloat(rc[0])/parseFloat(rc[1])).toFixed(4);
-            htmlD+='<div class="mosaique__rang">'
-              +'<div class="vis" style="flex:'+fa+' 1 0;aspect-ratio:'+a.ar+'"><img class="vis__img" src="'+a.src+'" alt=""></div>'
-              +'<div class="vis" style="flex:'+fc+' 1 0;aspect-ratio:'+c.ar+'"><img class="vis__img" src="'+c.src+'" alt=""></div>'
-              +'</div>';
-            iD+=2;
+        /* ORDINATEUR : la grille Figma d'origine, rang par rang */
+        pMosa.innerHTML=p.mosaique.map(function(rang){
+          if(rang.length===1){
+            var u=rang[0];
+            return '<div class="vis" style="aspect-ratio:'+u.ar+'"><img class="vis__img" src="'+u.src+'" alt=""></div>';
           }
-        }
-        pMosa.innerHTML=htmlD;
+          return '<div class="mosaique__rang">'+rang.map(function(v){
+            var r=v.ar.split("/"), f=(parseFloat(r[0])/parseFloat(r[1])).toFixed(4);
+            return '<div class="vis" style="flex:'+f+' 1 0;aspect-ratio:'+v.ar+'"><img class="vis__img" src="'+v.src+'" alt=""></div>';
+          }).join('')+'</div>';
+        }).join('');
+        /* TELEPHONE : une image pleine largeur, puis deux, en alternance */
         var pMosaM=document.getElementById("mosaique-proj-mob");
-        if(pMosaM){ pMosaM.innerHTML=htmlD.split('mosaique__rang').join('rangm'); }
+        if(pMosaM){
+          var tous=[];
+          p.mosaique.forEach(function(rang){rang.forEach(function(v){tous.push(v);});});
+          var htmlM="", iM=0, mM=0, motifM=[1,2,1,2];
+          while(iM<tous.length){
+            var nM=motifM[mM%motifM.length]; mM++;
+            if(nM===1 || tous.length-iM===1){
+              htmlM+='<div class="vis" style="aspect-ratio:'+tous[iM].ar+'"><img class="vis__img" src="'+tous[iM].src+'" alt=""></div>';
+              iM+=1;
+            } else {
+              var a=tous[iM], c=tous[iM+1];
+              var ra=a.ar.split("/"), rc=c.ar.split("/");
+              var fa=(parseFloat(ra[0])/parseFloat(ra[1])).toFixed(4);
+              var fc=(parseFloat(rc[0])/parseFloat(rc[1])).toFixed(4);
+              htmlM+='<div class="rangm">'
+                +'<div class="vis" style="flex:'+fa+' 1 0;aspect-ratio:'+a.ar+'"><img class="vis__img" src="'+a.src+'" alt=""></div>'
+                +'<div class="vis" style="flex:'+fc+' 1 0;aspect-ratio:'+c.ar+'"><img class="vis__img" src="'+c.src+'" alt=""></div>'
+                +'</div>';
+              iM+=2;
+            }
+          }
+          pMosaM.innerHTML=htmlM;
+        }
         pProjet.setAttribute("data-mosa","");
       } else {
         pProjet.removeAttribute("data-mosa");
