@@ -1,5 +1,6 @@
 import "./globals.css";
 import { NAV } from "../lib/contenu";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Odune — Studio-conseil à Paris",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
       <body>
         <div dangerouslySetInnerHTML={{ __html: NAV }} />
         {children}
+        <Analytics />
         <script src="/site.js" defer></script>
       </body>
     </html>
